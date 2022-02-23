@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import UserTable from './components/UserTable';
 import { v4 as uuidv4 } from 'uuid';
+import AddUserForm from './components/AddUserForm';
+import EditUserForm from './components/EditUserForm';
 
 
 
@@ -15,6 +17,24 @@ function App() {
   //state
   const [users, setUsers] = useState(usersData);
 
+// Agregar Usuarios
+const addUser = (user) => {
+  user.id = uuidv4()
+  setUsers([
+    ...users,
+    user
+  ])
+}
+
+//Eliminar usuario
+const deleteUser = (id) => {
+  const arrayFiltrado = users.filter(user => user.id !== id);
+
+  setUsers(arrayFiltrado);
+}
+
+//Editar Usuarios
+const [editing, setEditing] = useState(false);
 
 
   return (
@@ -22,12 +42,30 @@ function App() {
       <h1>CRUD App with Hooks</h1>
       <div className='flex-row'>
         <div className='flex-large'>
-          <h2>Add user</h2>
-          
+
+            {
+              editing ? (
+                <div>
+                  <h2>Edit user</h2>
+                  <EditUserForm />
+                </div>
+
+              ) : (
+                <div>
+                  <h2>Add user</h2>
+                  <AddUserForm addUser={addUser} />
+                </div>
+              )
+            }
+
         </div>
         <div className='flex-large'>
           <h2>View users</h2>
-          <UserTable users={users} />
+          <UserTable 
+            users={users}  
+            deleteUser={deleteUser} 
+            setEditing={setEditing}
+          />
         </div>
 
       </div>
