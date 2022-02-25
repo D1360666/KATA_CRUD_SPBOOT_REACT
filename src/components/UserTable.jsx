@@ -12,7 +12,7 @@ const UserTable = (props) => {
             </thead>
             <tbody>
                 {
-                    props.users.length>0?
+                    props.users.length > 0 ?
                     props.users.map(user =>(
                         <tr key={user.id}> 
                             <td>{user.name}</td>
@@ -20,7 +20,7 @@ const UserTable = (props) => {
                             <td>
                                 <button className='button muted-button'
                                     onClick={
-                                        () => {props.setEditing(true)}
+                                        () => {props.editRow(user.id)}
                                     }   
                                 >Edit</button>
                                 <button 
