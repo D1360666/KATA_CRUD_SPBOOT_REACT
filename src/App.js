@@ -51,7 +51,7 @@ const editRow = (user) => {
 const updateUser = (id, updateUser) => {
   setEditing(false);
 
-  setUsers(user.map(user => (user.id === id ? updateUser : user)))
+  setUsers(users.map(user => (user.id === id ? updateUser : user)))
 }
 
   return (

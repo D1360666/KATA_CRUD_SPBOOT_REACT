@@ -3,10 +3,11 @@ import { useForm } from 'react-hook-form'
 
 const AddUserForm = (props) => {
 
-    const {register, errors, handleSubmit} = useForm();
+    //const {register, handleSubmit, formState:{errors}} = useForm();
+    const {register, handleSubmit, formState:{errors}} = useForm();
 
     const onSubmit = (data, e) => {
-        //console.log(data);
+        console.log(data);
 
         props.addUser(data)
         
@@ -17,16 +18,16 @@ const AddUserForm = (props) => {
     return ( 
         <form onSubmit={handleSubmit(onSubmit)}>
             <label>Name</label>
-            <input type="text" name="name" ref={
-                register({
-                    required: {value:true, message: 'Campo Requerido'}
-                })
-            }/>
-            <div>
-                {errors?.name?.message}
-            </div>
+            <input type="text" name="name"
+            {...register("campoRequerido",{required:true})}/>
+            
+            {errors.campoRequerido && <span>Campo requerido</span>}
+
             <label>Username</label>
-            <input type="text" name="username" value="" />
+            <input type="text" name="username"
+           {...register("campoRequerido",{required:true})}/>
+           {errors.campoRequerido && <span>Campo requerido</span>}
+
             <button>Add new user</button>
 
         </form>
